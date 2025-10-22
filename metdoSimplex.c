@@ -850,6 +850,6 @@ void promptResolvedorDePL(void)
 }
 
 int main(){
-    promptResolvedorDePL();
+    promptResolvedorDePL(); 
     return 0;
 }
