@@ -848,8 +848,3 @@ void promptResolvedorDePL(void)
     free(b);
     free(c);
 }
-
-int main(){
-    promptResolvedorDePL(); 
-    return 0;
-}
