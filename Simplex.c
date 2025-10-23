@@ -26,7 +26,7 @@ double resolvedorDeProblemaDePL(double** A, double* b, double* c, unsigned long 
         MatrizTemp[i] = (double*) malloc(m*sizeof(double));
     }
 
-    double* vetorTemp = (double*) malloc(m*sizeof(double)); //Vetor que guarda todos os valores de vetores uqe tem que serem encontrados por eliminacao gausiana
+    double* vetorTemp = (double*) malloc(m*sizeof(double));     //Vetor que guarda todos os valores de vetores uqe tem que serem encontrados por eliminacao gausiana
 
     N[0] = 0;
     N[1] = 1;
@@ -65,19 +65,19 @@ double resolvedorDeProblemaDePL(double** A, double* b, double* c, unsigned long 
             vetorTemp[i] = b[i];
         }
 
-        for (i = 0; i < m; ++i) {   //Resolve o sistema por eliminacao gaussiana com pivoteamento para encontrar a solucao basica
+        for(i = 0; i < m; ++i){     //Resolve o sistema por eliminacao gaussiana com pivoteamento para encontrar a solucao basica
             maxCol = i;
             maxVal = (MatrizTemp[i][i] >= 0) ? MatrizTemp[i][i] : -MatrizTemp[i][i];
-            for (j = i + 1; j < m; ++j) {
+            for(j = i + 1; j < m; ++j){
                 val = (MatrizTemp[j][i] >= 0) ? MatrizTemp[j][i] : -MatrizTemp[j][i];
-                if (val > maxVal) {
+                if(val > maxVal){
                     maxVal = val;
                     maxCol = j;
                 }
             }
 
-            if (maxCol != i) {
-                for (j = 0; j < m; ++j) {
+            if(maxCol != i){
+                for(j = 0; j < m; ++j){
                     val = MatrizTemp[i][j];
                     MatrizTemp[i][j] = MatrizTemp[maxCol][j];
                     MatrizTemp[maxCol][j] = val;
@@ -93,18 +93,18 @@ double resolvedorDeProblemaDePL(double** A, double* b, double* c, unsigned long 
             }
 
             val = MatrizTemp[i][i];
-            for (j = 0; j < m; ++j){
+            for(j = 0; j < m; ++j){
                 MatrizTemp[i][j] /= val;
             }
 
             vetorTemp[i] /= val;
-            for (j = 0; j < m; ++j) {
-                if (j == i){
+            for(j = 0; j < m; ++j){
+                if(j == i){
                     continue;
                 }
 
                 val = MatrizTemp[j][i];
-                for (k = 0; k < m; ++k){
+                for(k = 0; k < m; ++k){
                     MatrizTemp[j][k] -= val * MatrizTemp[i][k];
                 }
 
@@ -126,19 +126,19 @@ double resolvedorDeProblemaDePL(double** A, double* b, double* c, unsigned long 
             vetorTemp[i] = c[B[i]];
         }
 
-        for (i = 0; i < m; ++i) {   //Resolve o sistema por eliminacao gaussiana com pivoteamento para encontrar o vetor multiplicador simplex
+        for(i = 0; i < m; ++i){     //Resolve o sistema por eliminacao gaussiana com pivoteamento para encontrar o vetor multiplicador simplex
             maxCol = i;
             maxVal = (MatrizTemp[i][i] >= 0) ? MatrizTemp[i][i] : -MatrizTemp[i][i];
-            for (j = i + 1; j < m; ++j) {
+            for(j = i + 1; j < m; ++j){
                 val = (MatrizTemp[j][i] >= 0) ? MatrizTemp[j][i] : -MatrizTemp[j][i];
-                if (val > maxVal) {
+                if(val > maxVal){
                     maxVal = val;
                     maxCol = j;
                 }
             }
 
-            if (maxCol != i) {
-                for (j = 0; j < m; ++j) {
+            if(maxCol != i){
+                for(j = 0; j < m; ++j){
                     val = MatrizTemp[i][j];
                     MatrizTemp[i][j] = MatrizTemp[maxCol][j];
                     MatrizTemp[maxCol][j] = val;
@@ -154,18 +154,18 @@ double resolvedorDeProblemaDePL(double** A, double* b, double* c, unsigned long 
             }
 
             val = MatrizTemp[i][i];
-            for (j = 0; j < m; ++j){
+            for(j = 0; j < m; ++j){
                 MatrizTemp[i][j] /= val;
             }
 
             vetorTemp[i] /= val;
-            for (j = 0; j < m; ++j) {
-                if (j == i){
+            for(j = 0; j < m; ++j){
+                if(j == i){
                     continue;
                 }
 
                 val = MatrizTemp[j][i];
-                for (k = 0; k < m; ++k){
+                for(k = 0; k < m; ++k){
                     MatrizTemp[j][k] -= val * MatrizTemp[i][k];
                 }
 
@@ -179,7 +179,7 @@ double resolvedorDeProblemaDePL(double** A, double* b, double* c, unsigned long 
 
         min = inf;                  //Inicializa com infinito por preguica
 
-        for(i = 0; i < n-m; ++i){     //Calcula os custos reduzidos das colunas nao basicas (e encontra a coluna que vai entrar na base)
+        for(i = 0; i < n-m; ++i){   //Calcula os custos reduzidos das colunas nao basicas (e encontra a coluna que vai entrar na base)
             val = 0;
             for(j = 0; j < m; ++j){
                 if(A[j][N[i]] != 0 && lambda[j] != 0){
@@ -209,19 +209,19 @@ double resolvedorDeProblemaDePL(double** A, double* b, double* c, unsigned long 
             vetorTemp[i] = A[i][N[entra]];
         }
 
-        for (i = 0; i < m; ++i) {   //Resolve o sistema por eliminacao gaussiana com pivoteamento para achar os y
+        for(i = 0; i < m; ++i){     //Resolve o sistema por eliminacao gaussiana com pivoteamento para achar os y
             maxCol = i;
             maxVal = (MatrizTemp[i][i] >= 0) ? MatrizTemp[i][i] : -MatrizTemp[i][i];
-            for (j = i + 1; j < m; ++j) {
+            for(j = i + 1; j < m; ++j){
                 val = (MatrizTemp[j][i] >= 0) ? MatrizTemp[j][i] : -MatrizTemp[j][i];
-                if (val > maxVal) {
+                if(val > maxVal){
                     maxVal = val;
                     maxCol = j;
                 }
             }
 
-            if (maxCol != i) {
-                for (j = 0; j < m; ++j) {
+            if(maxCol != i){
+                for(j = 0; j < m; ++j){
                     val = MatrizTemp[i][j];
                     MatrizTemp[i][j] = MatrizTemp[maxCol][j];
                     MatrizTemp[maxCol][j] = val;
@@ -237,18 +237,18 @@ double resolvedorDeProblemaDePL(double** A, double* b, double* c, unsigned long 
             }
 
             val = MatrizTemp[i][i];
-            for (j = 0; j < m; ++j){
+            for(j = 0; j < m; ++j){
                 MatrizTemp[i][j] /= val;
             }
 
             vetorTemp[i] /= val;
-            for (j = 0; j < m; ++j) {
-                if (j == i){
+            for(j = 0; j < m; ++j){
+                if(j == i){
                     continue;
                 }
 
                 val = MatrizTemp[j][i];
-                for (k = 0; k < m; ++k){
+                for(k = 0; k < m; ++k){
                     MatrizTemp[j][k] -= val * MatrizTemp[i][k];
                 }
 
@@ -278,7 +278,7 @@ double resolvedorDeProblemaDePL(double** A, double* b, double* c, unsigned long 
             printf("x%llu = %lf ",B[i] + 1,xB[i]);
         }
         
-        //A coluna que sai, sai e a que entra, entra
+                                    //A coluna que sai, sai e a que entra, entra
         i = B[sai];
         B[sai] = N[entra];
         N[entra] = i;
@@ -301,7 +301,7 @@ double resolvedorDeProblemaDePL(double** A, double* b, double* c, unsigned long 
         }
     }
 
-    else if (exit == 2){    //Se exit for 2, indica que o problema e ilimitado
+    else if(exit == 2){     //Se exit for 2, indica que o problema e ilimitado
         min = -inf;
         for(i = 0; i < n; ++i){
             xSaida[i] = 0.0/0.0;
@@ -326,7 +326,7 @@ double resolvedorDeProblemaDePL(double** A, double* b, double* c, unsigned long 
 #undef inf
 #undef epsilon
 
-void promptResolvedorDePL(void){
+void promptResolvedorDePL(){
     unsigned long long int n0; 
     unsigned long long int m0;
     unsigned long long int i;
@@ -359,7 +359,7 @@ void promptResolvedorDePL(void){
         rels[i] = (char*)malloc(3 * sizeof(char));
     }
 
-    for(i = 0; i < m0; i++) {
+    for(i = 0; i < m0; i++){
         b[i] = 0.0;
     }
 
@@ -385,15 +385,15 @@ void promptResolvedorDePL(void){
         } 
     }
 
-    if(maximizar) {
+    if(maximizar){
         for(j = 0; j < n0; j++){
             c[j] = -c[j];
         }
     }
 
     printf("\nRestrições:\n");
-    for(i = 0; i < m0; i++) {
-        for(j = 0; j < n0; j++) {
+    for(i = 0; i < m0; i++){
+        for(j = 0; j < n0; j++){
             printf("A(%llu,%llu) = ", i + 1, j + 1);
             if(scanf("%lf", &A[i][j]) != 1){ 
                 A[i][j] = 0.0;
@@ -436,7 +436,7 @@ void promptResolvedorDePL(void){
     double** A_std = (double**) malloc(m0 * sizeof(double*)); 
     for(i = 0; i < m0; i++){
         A_std[i] = (double*) malloc(n_total * sizeof(double));
-        for (j = 0; j < n_total; j++){
+        for(j = 0; j < n_total; j++){
             A_std[i][j] = 0.0;
         }
     }
@@ -458,7 +458,7 @@ void promptResolvedorDePL(void){
 
     double* c_ext = (double*) malloc(n_total * sizeof(double));
     for(j = 0; j < n_total; j++){
-        if (j < n0){ 
+        if(j < n0){ 
             c_ext[j] = c[j];
         }
 
@@ -471,7 +471,7 @@ void promptResolvedorDePL(void){
     printf("Min z = ");
     for(j = 0; j < n0; j++){
         if(j > 0){
-            if (c[j] >= 0){ 
+            if(c[j] >= 0){ 
                 printf(" + ");
             }
             
@@ -517,7 +517,7 @@ void promptResolvedorDePL(void){
         xsaida[j] = 0.0;
     }
 
-    double valor_obj = resolvedorDeProblemaDePL(A_std, b, c_ext, m0, n_total, xsaida); //Finalmente resolver o problema de PL
+    double valor_obj = resolvedorDeProblemaDePL(A_std, b, c_ext, m0, n_total, xsaida); //Finalmente resolver o problema de PL :D
     if(!(valor_obj == valor_obj)){
         printf("\nProblema inviável ou sem solução.\n");
     }
